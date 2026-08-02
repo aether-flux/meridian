@@ -9,3 +9,9 @@ dist-ssr
 .cache
 server/dist
 public/dist
+
+# AI Assistant Artifacts
+.agents/
+.claude/
+.windsurf/
+skills-lock.json

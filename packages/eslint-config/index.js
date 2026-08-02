@@ -16,12 +16,15 @@ module.exports = {
     ecmaVersion: "latest",
     ecmaFeatures: {
       jsx: true,
-    }
+    },
   },
   settings: {
     react: {
       version: "detect",
-    }
+    },
   },
-  rules: {},
+  rules: {
+    "react/prop-types": "off",
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+  },
 };

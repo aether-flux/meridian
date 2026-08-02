@@ -1,0 +1,23 @@
+{
+  "name": "meridian-cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Meridian CLI tool.",
+  "bin": {
+    "meridian": "./bin/meridian.js"
+  },
+  "scripts": {
+    "start": "node ./bin/meridian.js",
+    "lint": "eslint \"src/**/*.js\" \"bin/**/*.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "commander": "^15.0.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*"
+  }
+}
