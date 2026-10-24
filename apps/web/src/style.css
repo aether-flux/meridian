@@ -1,23 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  /* CHANGE THESE PROPERTIES AS PER FINAL UI SCHEME */
+  --color-brand-primary: #1a1a1a;
+  --color-brand-accent: #22c55e;
 
-  /* Custom Brand Colors */
-  --color-brand-primary: #6366f1;   /* Accessible via bg-brand-primary, text-brand-primary */
-  --color-brand-accent: #10b981;    /* Accessible via bg-brand-accent, border-brand-accent */
-  --color-brand-dark: #0f172a;
+  --color-surface: #f8f6f3;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #f0ede8;
+  --color-surface-inset: #f5f2ef;
 
-  /* Custom Status Colors for Meridian (Tasks) */
-  --color-status-todo: #64748b;
-  --color-status-in-progress: #3b82f6;
+  --color-border: #e8e5e0;
+  --color-border-subtle: #eeedea;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-text-faint: #aaaaaa;
+
+  --color-status-todo: #888888;
+  --color-status-in-progress: #f59e0b;
+  --color-status-in-review: #6366f1;
   --color-status-done: #22c55e;
-  --color-status-urgent: #ef4444;
+  --color-status-cancelled: #aaaaaa;
 
-  /* Custom Font Families */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
 
-  /* Custom Border Radius / Spacing / Breakpoints (if needed) */
-  --radius-xl: 1rem;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.18);
 }

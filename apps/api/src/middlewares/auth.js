@@ -11,6 +11,12 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "dev-test-key");
+    if (!decoded.userId) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden: Invalid or expired token" });
+    }
+
     req.user = decoded;
     next();
   } catch (error) {
