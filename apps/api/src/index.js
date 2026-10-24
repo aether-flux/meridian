@@ -1,11 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth.routes");
 const projectRoutes = require("./routes/project.routes");
+const sprintRoutes = require("./routes/sprint.routes");
 const taskRoutes = require("./routes/task.routes");
 const workspaceRoutes = require("./routes/workspace.routes");
+const inviteRoutes = require("./routes/invite.routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,7 +24,9 @@ app.get("/health", (req, res) => {
 
 // Mount routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/invites", inviteRoutes);
 app.use("/api/v1/projects", projectRoutes);
+app.use("/api/v1/sprints", sprintRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 app.use("/api/v1/workspaces", workspaceRoutes);
 
@@ -33,6 +39,10 @@ app.use((err, req, res, _next) => {
 });
 
 // Listen/start server
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+  });
+}
+
+module.exports = app;
