@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import "./style.css";
 import AppRoutes from "./routes/AppRoutes.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 // const App = () => (
 //   <div>
@@ -10,4 +11,8 @@ import AppRoutes from "./routes/AppRoutes.jsx";
 //   </div>
 // );
 
-createRoot(document.getElementById("app")).render(<AppRoutes />);
+createRoot(document.getElementById("app")).render(
+	<AuthProvider>
+		<AppRoutes />
+	</AuthProvider>,
+);
