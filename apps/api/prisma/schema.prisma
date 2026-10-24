@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -45,18 +45,18 @@ enum Priority {
 }
 
 model User {
-  id           String            @id @default(uuid())
-  email        String            @unique
-  passwordHash String
-  displayName  String
-  avatarUrl    String?
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
-  workspaces   WorkspaceMember[]
-  createdTasks Task[]            @relation("TaskCreator")
+  id            String            @id @default(uuid())
+  email         String            @unique
+  passwordHash  String
+  displayName   String
+  avatarUrl     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  workspaces    WorkspaceMember[]
+  createdTasks  Task[]            @relation("TaskCreator")
   assignedTasks TaskAssignee[]
-  comments     Comment[]
-  tokens       RefreshToken[]
+  comments      Comment[]
+  tokens        RefreshToken[]
 }
 
 model RefreshToken {
@@ -75,6 +75,7 @@ model Workspace {
   createdAt DateTime          @default(now())
   members   WorkspaceMember[]
   projects  Project[]
+  invites   Invite[]
 }
 
 model WorkspaceMember {
@@ -88,13 +89,23 @@ model WorkspaceMember {
   @@id([workspaceId, userId])
 }
 
+model Invite {
+  id          String    @id @default(uuid())
+  workspaceId String
+  email       String
+  role        Role      @default(MEMBER)
+  token       String    @unique
+  expiresAt   DateTime
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
 model Project {
   id          String        @id @default(uuid())
   workspaceId String
   name        String
   description String?
   icon        String?
-  identifier  String        // e.g., 'PROJ'
+  identifier  String // e.g., 'PROJ'
   status      ProjectStatus @default(ACTIVE)
   createdAt   DateTime      @default(now())
   deletedAt   DateTime?
@@ -106,7 +117,7 @@ model Project {
 model Task {
   id          String         @id @default(uuid())
   projectId   String
-  number      Int            // Auto-increment relative to project (PROJ-12)
+  number      Int // Auto-increment relative to project (PROJ-12)
   title       String
   description String?
   status      TaskStatus     @default(TODO)
