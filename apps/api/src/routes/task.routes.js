@@ -1,21 +1,31 @@
 const express = require("express");
 const verifyToken = require("../middlewares/auth");
-// const prisma = require('../config/db');
-const router = express.Router();
+const {
+  createTask,
+  getTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+  getTaskComments,
+  createTaskComment,
+  createSubTask,
+} = require("../controllers/task.controller");
 
+const router = express.Router({ mergeParams: true });
+
+// Apply auth middleware to all task endpoints
 router.use(verifyToken);
-router.get("/", (req, res) => res.json({ message: "List tasks" }));
-/// DEMO USAGE: How to use Prisma; Of course just for example, do not create new user in task routes
-// router.post('/', async (req, res) => {
-//   const user = await prisma.user.create({
-//     data: {
-//       email: 'john@doe.com',
-//       passwordHash: 'abcdddff',
-//       displayName: 'John Doe',
-//     }
-//   });
-//   console.log(user);
-//   res.status(200).json({ user });
-// })
+
+// Task collection endpoints
+router.get("/", getTasks);
+router.post("/", createTask);
+
+// Single task endpoints
+router.get("/:id", getTaskById);
+router.patch("/:id", updateTask);
+router.delete("/:id", deleteTask);
+router.get("/:id/comments", getTaskComments);
+router.post("/:id/comments", createTaskComment);
+router.post("/:id/subtasks", createSubTask);
 
 module.exports = router;
