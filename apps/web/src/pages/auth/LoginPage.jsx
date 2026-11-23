@@ -62,21 +62,6 @@ export default function LoginPage() {
 
       {/* Login Card */}
       <div className="w-full max-w-sm bg-white border border-[#e8e5e0] rounded-xl p-6 sm:p-8 shadow-sm">
-        {/* Quick Demo Pre-fill Pill */}
-        <div className="mb-6 p-3 rounded-lg bg-[#f5f2ef] border border-[#e8e5e0] flex items-center justify-between text-xs text-[#555]">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#888]" />
-            <span>Developer Review?</span>
-          </div>
-          <button
-            type="button"
-            onClick={handleFillDemo}
-            className="px-2.5 py-1 rounded-md bg-[#f0ede8] border border-[#e8e5e0] hover:bg-[#e8e5e0] text-[#1a1a1a] font-medium transition-colors"
-          >
-            Auto-fill Demo
-          </button>
-        </div>
-
         {error && (
           <div className="mb-5 p-3 rounded-lg bg-red-50 border border-red-200 text-xs text-red-600">
             {error}
