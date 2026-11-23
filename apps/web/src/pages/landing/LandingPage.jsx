@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Copy, Check } from "lucide-react";
+import {
+  ArrowRight,
+  Copy,
+  Check,
+} from "lucide-react";
 import { Button } from "../../ui/components/Button.jsx";
 
 export default function LandingPage() {
@@ -65,10 +69,7 @@ export default function LandingPage() {
           </div>
 
           <nav className="hidden sm:flex items-center gap-6">
-            <a
-              href="#features"
-              className="text-sm text-[#555] hover:text-[#1a1a1a] transition-colors"
-            >
+            <a href="#features" className="text-sm text-[#555] hover:text-[#1a1a1a] transition-colors">
               Features
             </a>
             <span className="text-sm text-[#555] hover:text-[#1a1a1a] transition-colors cursor-default">
@@ -110,8 +111,8 @@ export default function LandingPage() {
               </h1>
 
               <p className="mt-6 text-base text-[#555] leading-relaxed max-w-lg">
-                Meridian pairs a precise web app with a first-class CLI. Same
-                REST API, same data, two ways to drive your team&apos;s work.
+                Meridian pairs a precise web app with a first-class CLI.
+                Same REST API, same data, two ways to drive your team&apos;s work.
               </p>
 
               {/* Call to Actions */}
@@ -148,28 +149,31 @@ export default function LandingPage() {
                   <div className="flex items-center gap-1 bg-[#111] p-1 rounded-lg border border-[#333] text-xs">
                     <button
                       onClick={() => setActiveTab("create")}
-                      className={`px-2.5 py-1 rounded transition-colors ${activeTab === "create"
+                      className={`px-2.5 py-1 rounded transition-colors ${
+                        activeTab === "create"
                           ? "bg-[#333] text-white font-medium"
                           : "text-[#888] hover:text-[#ccc]"
-                        }`}
+                      }`}
                     >
                       Create Task
                     </button>
                     <button
                       onClick={() => setActiveTab("board")}
-                      className={`px-2.5 py-1 rounded transition-colors ${activeTab === "board"
+                      className={`px-2.5 py-1 rounded transition-colors ${
+                        activeTab === "board"
                           ? "bg-[#333] text-white font-medium"
                           : "text-[#888] hover:text-[#ccc]"
-                        }`}
+                      }`}
                     >
                       Board Status
                     </button>
                     <button
                       onClick={() => setActiveTab("invite")}
-                      className={`px-2.5 py-1 rounded transition-colors ${activeTab === "invite"
+                      className={`px-2.5 py-1 rounded transition-colors ${
+                        activeTab === "invite"
                           ? "bg-[#333] text-white font-medium"
                           : "text-[#888] hover:text-[#ccc]"
-                        }`}
+                      }`}
                     >
                       Token Invites
                     </button>
@@ -179,16 +183,11 @@ export default function LandingPage() {
                 {/* Terminal Body */}
                 <div className="p-5 font-mono text-sm space-y-3 text-left">
                   <div className="flex items-start gap-2 text-[#ccc]">
-                    <span className="text-emerald-400 font-bold shrink-0">
-                      ❯
-                    </span>
+                    <span className="text-emerald-400 font-bold shrink-0">❯</span>
                     <span>
                       <span className="font-bold text-white">meridian</span>{" "}
                       <span className="text-[#ccc]">
-                        {terminalSnippets[activeTab].input.replace(
-                          "meridian ",
-                          "",
-                        )}
+                        {terminalSnippets[activeTab].input.replace("meridian ", "")}
                       </span>
                     </span>
                   </div>
@@ -222,6 +221,25 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* CLI Install Strip */}
+      <div className="flex items-center justify-center pb-16">
+        <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-[#f0ede8] border border-[#e8e5e0] text-xs font-mono text-[#555]">
+          <span className="text-[#1a1a1a] font-bold">$</span>
+          <span className="select-all text-[#1a1a1a]">{installCmd}</span>
+          <button
+            onClick={handleCopyInstall}
+            className="p-1 hover:text-[#1a1a1a] transition-colors"
+            title="Copy install command"
+          >
+            {copiedInstall ? (
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+            ) : (
+              <Copy className="w-3.5 h-3.5" />
+            )}
+          </button>
+        </div>
+      </div>
+
       {/* Core Feature Highlights */}
       <section id="features" className="py-20 bg-[#f0ede8]/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -237,9 +255,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Feature 1 */}
             <div className="p-6 rounded-xl bg-white border border-[#e8e5e0] hover:shadow-sm transition-shadow">
-              <span className="text-xs font-mono text-[#888] mb-3 block">
-                git
-              </span>
+              <span className="text-xs font-mono text-[#888] mb-3 block">git</span>
               <h3 className="text-sm font-semibold text-[#1a1a1a] mb-2">
                 Human-Readable IDs
               </h3>
@@ -255,26 +271,20 @@ export default function LandingPage() {
 
             {/* Feature 2 */}
             <div className="p-6 rounded-xl bg-white border border-[#e8e5e0] hover:shadow-sm transition-shadow">
-              <span className="text-xs font-mono text-[#888] mb-3 block">
-                token
-              </span>
+              <span className="text-xs font-mono text-[#888] mb-3 block">token</span>
               <h3 className="text-sm font-semibold text-[#1a1a1a] mb-2">
                 Token-Based Invites
               </h3>
               <p className="text-xs text-[#555] leading-relaxed">
                 Add workspace members via one-click cryptographic links (e.g.{" "}
-                <span className="font-mono text-[#1a1a1a]">
-                  /invite/tok_abc
-                </span>
+                <span className="font-mono text-[#1a1a1a]">/invite/tok_abc</span>
                 ) without requiring SMTP or third-party email providers.
               </p>
             </div>
 
             {/* Feature 3 */}
             <div className="p-6 rounded-xl bg-white border border-[#e8e5e0] hover:shadow-sm transition-shadow">
-              <span className="text-xs font-mono text-[#888] mb-3 block">
-                status
-              </span>
+              <span className="text-xs font-mono text-[#888] mb-3 block">status</span>
               <h3 className="text-sm font-semibold text-[#1a1a1a] mb-2">
                 Tasks & Sprints
               </h3>
@@ -286,17 +296,14 @@ export default function LandingPage() {
 
             {/* Feature 4 */}
             <div className="p-6 rounded-xl bg-white border border-[#e8e5e0] hover:shadow-sm transition-shadow">
-              <span className="text-xs font-mono text-[#888] mb-3 block">
-                ⌘K
-              </span>
+              <span className="text-xs font-mono text-[#888] mb-3 block">⌘K</span>
               <h3 className="text-sm font-semibold text-[#1a1a1a] mb-2">
                 Role-Based Workspaces
               </h3>
               <p className="text-xs text-[#555] leading-relaxed">
                 Granular hierarchy with Owner, Admin, Member, and Viewer
                 permissions. Clean workspace URL slugs like{" "}
-                <span className="font-mono text-[#1a1a1a]">/w/engineering</span>
-                .
+                <span className="font-mono text-[#1a1a1a]">/w/engineering</span>.
               </p>
             </div>
           </div>
@@ -316,16 +323,10 @@ export default function LandingPage() {
             <span>— Dual CLI & Web Project Management</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link
-              to="/login"
-              className="hover:text-[#1a1a1a] transition-colors"
-            >
+            <Link to="/login" className="hover:text-[#1a1a1a] transition-colors">
               Log In
             </Link>
-            <Link
-              to="/register"
-              className="hover:text-[#1a1a1a] transition-colors"
-            >
+            <Link to="/register" className="hover:text-[#1a1a1a] transition-colors">
               Register
             </Link>
           </div>
