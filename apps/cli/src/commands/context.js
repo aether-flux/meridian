@@ -123,4 +123,4 @@ const contextAction = () => {
     console.log(`Project: ${activeProject ? `${activeProject.identifier} ${activeProject.name}` : 'Not selected'}`)
 }
 
-module.exports = { configureContext, workspaceAction, projectAction, contextAction }
+module.exports = { configureContext, chooseWorkspace, workspaceAction, projectAction, contextAction }

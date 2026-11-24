@@ -7,10 +7,13 @@ const loginApi = async (email, password) => {
     }
 
     try {
-    const res = await axios.post(`${API_URL}/api/v1/auth/login`, body)
-    return res.data
+        const res = await axios.post(`${API_URL}/api/v1/auth/login`, body)
+        return res.data
     } catch (e) {
-        return { error: e.response?.data?.error || "Unknown error", details: e.response?.data?.details || null }
+        return {
+            error: e.response?.data?.error || e.message || 'Unable to reach Meridian API',
+            details: e.response?.data?.details || null,
+        }
     }
 }
 

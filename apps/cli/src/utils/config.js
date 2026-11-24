@@ -54,4 +54,24 @@ const updateConfig = (partial) => {
     return nextConf
 }
 
-module.exports = { getConfigDir, getConfigPath, readConfig, writeConfig, updateConfig }
+const clearAuthConfig = () => {
+    const config = readConfig()
+    const removeTokens = (value) => {
+        if (!value || typeof value !== 'object') return
+        for (const key of Object.keys(value)) {
+            if (/token/i.test(key)) {
+                delete value[key]
+            } else {
+                removeTokens(value[key])
+            }
+        }
+    }
+
+    removeTokens(config)
+    delete config.user
+    delete config.activeWorkspace
+    delete config.activeProject
+    writeConfig(config)
+}
+
+module.exports = { getConfigDir, getConfigPath, readConfig, writeConfig, updateConfig, clearAuthConfig }
