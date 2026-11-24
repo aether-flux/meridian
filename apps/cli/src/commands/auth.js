@@ -1,72 +1,30 @@
-const { input, password } = require('@inquirer/prompts')
-const { loginApi } = require('../api/auth')
-const { updateConfig, getConfigPath } = require('../utils/config')
+const { authenticate } = require('../utils/login')
+const { clearAuthConfig, getConfigPath, readConfig } = require('../utils/config')
 const { configureContext } = require('./context')
-const ora = require('ora')
 
 const loginAction = async () => {
-    const email = await input({
-        message: 'Email:',
-        validate: (v) => {
-            const trimmed = v.trim()
-            if (!trimmed) {
-                return "Email is required"
-            }
-            if (!trimmed.includes('@')) {
-                return "Invalid email format"
-            }
-            return true
-        }
-    })
-    const pswd = await password({
-        message: 'Password:',
-        mask: '*',
-        validate: (v) => {
-            const trimmed = v.trim()
-            if (!trimmed) {
-                return "Password is required"
-            }
-            if (trimmed.length < 8) {
-                return "Password must be at least 8 characters long"
-            }
-            return true
-        }
-    })
-
-    const spinner = ora({
-        text: 'Authenticating...',
-        spinner: 'dots',
-    }).start()
-
-    let res
     try {
-        res = await loginApi(email.trim(), pswd.trim())
+        const { user } = await authenticate()
+        const displayName = user?.displayName || user?.email || 'Unknown user'
+        console.log(`Logged in as ${displayName}`)
+        console.log(`Session saved to: ${getConfigPath()}`)
+
+        try {
+            await configureContext()
+        } catch (error) {
+            console.error(`Could not configure workspace context: ${error.message || error}`)
+        }
     } catch (e) {
-        spinner.fail('Could not reach Meridian API.')
-        console.error(e.message || e)
-        return
+        console.error(`Login failed: ${e.message || e}`)
+        if (e.details) console.error('Details:', e.details)
     }
-
-    if (!res || res.error) {
-        spinner.fail('Login failed.')
-        console.error(` ${res?.error || 'Unknown error'}`)
-        res.details ? console.error('   Details:', res.details) : null
-        return
-    }
-
-    updateConfig({ accessToken: res.token, user: res.user })
-    const displayName = res.user?.displayName || res.user?.email || 'Unknown user'
-    spinner.succeed(`Logged in as ${displayName}`)
-
-    try {
-        await configureContext()
-    } catch (e) {
-        console.error(`  Could not load workspace settings: ${e.message || e}`)
-    }
-
-    console.log('')
-    console.log(`  Welcome back, ${displayName}!`)
-    console.log(`  Session saved to : ${getConfigPath()}`)
 }
 
-module.exports = { loginAction }
+const logoutAction = () => {
+    const config = readConfig()
+    const wasLoggedIn = Boolean(config.accessToken || config.token || config.refreshToken)
+    clearAuthConfig()
+    console.log(wasLoggedIn ? 'Logged out. Saved tokens and account context were cleared.' : 'No saved session found.')
+}
+
+module.exports = { loginAction, logoutAction }
