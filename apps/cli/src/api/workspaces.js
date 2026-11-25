@@ -5,6 +5,11 @@ const getWorkspaces = async () => {
     return res.data.workspaces || []
 }
 
+const getWorkspace = async (workspaceSlug) => {
+    const res = await apiRequest('get', `/api/v1/workspaces/${encodeURIComponent(workspaceSlug)}`)
+    return res.data.workspace
+}
+
 const getProjects = async (workspaceSlug) => {
     const res = await apiRequest('get', `/api/v1/workspaces/${encodeURIComponent(workspaceSlug)}/projects`)
     return res.data.projects || []
@@ -29,4 +34,4 @@ const updateProject = async (projectId, data) => {
     return res.data.project
 }
 
-module.exports = { getWorkspaces, getProjects, getAllProjects, createProject, updateProject }
+module.exports = { getWorkspaces, getWorkspace, getProjects, getAllProjects, createProject, updateProject }
